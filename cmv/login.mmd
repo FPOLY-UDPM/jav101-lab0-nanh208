@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor User as Người dùng
+    participant View as UserView
+    participant Controller as UserController
+    participant Model as User
+
+    User->>View: Nhập username và password
+    View->>Controller: Gửi yêu cầu login(username, password)
+    Controller->>Model: Kiểm tra thông tin (validate)
+
+    alt Thông tin hợp lệ
+        Model-->>Controller: Trả về User object
+        Controller->>View: Hiển thị thông báo thành công & thông tin
+        View-->>User: Hiển thị "Đăng nhập thành công"
+    else Thông tin sai
+        Model-->>Controller: Trả về null/error
+        Controller->>View: Hiển thị thông báo lỗi
+        View-->>User: Hiển thị "Đăng nhập thất bại"
+    end

@@ -1,0 +1,23 @@
+sequenceDiagram
+    autonumber
+    actor User as Browser (Client)
+    participant C as Controller (Servlet)
+    participant M as Model (Service/DAO)
+    participant DB as Database
+    participant V as View (JSP/Thymeleaf)
+
+    User->>C: Gửi HTTP Request (vd: GET /user/profile)
+    Note right of C: Controller tiếp nhận & phân tích URL
+
+    C->>M: Gọi Service xử lý logic (getUserDetail)
+    M->>DB: Truy vấn dữ liệu (SQL Query)
+    DB-->>M: Trả về kết quả (ResultSet)
+    M-->>C: Trả về đối tượng dữ liệu (User Object)
+
+    Note right of C: Controller đính kèm dữ liệu vào Request/Model
+
+    C->>V: Forward (Chuyển tiếp) tới View cụ thể
+
+    Note over V: View đọc dữ liệu & Render HTML
+
+    V-->>User: Trả về HTTP Response (HTML Page)
